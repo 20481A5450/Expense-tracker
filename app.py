@@ -22,7 +22,7 @@ st.title(page_title + " " + page_icon)
 
 # Initialize Firebase if not already initialized
 if not firebase_admin._apps:
-    cred = credentials.Certificate("path/to/your/serviceAccountKey.json")
+    cred = credentials.Certificate("keys.json")
     firebase_admin.initialize_app(cred)
 
 db = firestore.client()
