@@ -20,36 +20,10 @@ layout = "centered"
 st.set_page_config(page_title=page_title, page_icon=page_icon, layout=layout)
 st.title(page_title + " " + page_icon)
 
-# # Initialize Firebase if not already initialized
-# if not firebase_admin._apps:
-#     cred = credentials.Certificate("keys.json")
-#     firebase_admin.initialize_app(cred)
-
-# db = firestore.client()
-import firebase_admin
-from firebase_admin import credentials, firestore
-import toml
-
-# Read the TOML file
-config = toml.load('secrets.toml')
-
-# Extract the service account credentials from the config
-service_account_info = {
-    "type": config["service_account"]["type"],
-    "project_id": config["service_account"]["project_id"],
-    "private_key_id": config["service_account"]["private_key_id"],
-    "private_key": config["service_account"]["private_key"],
-    "client_email": config["service_account"]["client_email"],
-    "client_id": config["service_account"]["client_id"],
-    "auth_uri": config["service_account"]["auth_uri"],
-    "token_uri": config["service_account"]["token_uri"],
-    "auth_provider_x509_cert_url": config["service_account"]["auth_provider_x509_cert_url"],
-    "client_x509_cert_url": config["service_account"]["client_x509_cert_url"]
-}
-
-# Initialize Firebase
-cred = credentials.Certificate(service_account_info)
-firebase_admin.initialize_app(cred)
+# Initialize Firebase if not already initialized
+if not firebase_admin._apps:
+    cred = credentials.Certificate("keys.json")
+    firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 
