@@ -7,7 +7,6 @@ from streamlit_option_menu import option_menu  # pip install streamlit-option-me
 
 import firebase_admin
 from firebase_admin import credentials, firestore  # pip install firebase-admin
-
 # -------------- SETTINGS --------------
 incomes = ["Salary", "Other Income"]
 expenses = ["Rent", "Food", "Groceries", "Other Expenses", "Savings"]
@@ -20,12 +19,34 @@ layout = "centered"
 st.set_page_config(page_title=page_title, page_icon=page_icon, layout=layout)
 st.title(page_title + " " + page_icon)
 
-# Initialize Firebase if not already initialized
-if not firebase_admin._apps:
-    cred = credentials.Certificate("keys.json")
-    firebase_admin.initialize_app(cred)
 
+# Access the credentials from Streamlit secrets
+firebase_credentials = {
+    "type": st.secrets["firebase"]["type"],
+    "project_id": st.secrets["firebase"]["project_id"],
+    "private_key_id": st.secrets["firebase"]["private_key_id"],
+    "private_key": st.secrets["firebase"]["private_key"].replace("\\n", "\n"),
+    "client_email": st.secrets["firebase"]["client_email"],
+    "client_id": st.secrets["firebase"]["client_id"],
+    "auth_uri": st.secrets["firebase"]["auth_uri"],
+    "token_uri": st.secrets["firebase"]["token_uri"],
+    "auth_provider_x509_cert_url": st.secrets["firebase"]["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": st.secrets["firebase"]["client_x509_cert_url"]
+}
+
+# Initialize the Firebase app
+cred = credentials.Certificate(firebase_credentials)
+firebase_admin.initialize_app(cred)
+
+# Get a reference to the Firestore service
 db = firestore.client()
+
+# Initialize Firebase if not already initialized
+# if not firebase_admin._apps:
+#     cred = credentials.Certificate("keys.json")
+#     firebase_admin.initialize_app(cred)
+
+# db = firestore.client()
 
 # --- DROP DOWN VALUES FOR SELECTING THE PERIOD ---
 years = [datetime.today().year, datetime.today().year + 1]
