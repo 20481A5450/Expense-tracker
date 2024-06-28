@@ -10,7 +10,7 @@ Expense-tracker is a simple application that helps you keep track of your expens
 - Edit or delete existing expenses as needed.
 
 ## Live Demo
-[![Demo](https://img.shields.io/badge/Demo-https%3A%2F%2Fexpense-tracker-4c7f8f.netlify.app-green.svg)](https://expense-tracker-zo.streamlit.app/)
+[![Demo](https://img.shields.io/badge/Demo-green)](https://expense-tracker-zo.streamlit.app/)
 ## Contributing
 Contributions are welcome! If you have any ideas or improvements, feel free to submit a pull request.
 
